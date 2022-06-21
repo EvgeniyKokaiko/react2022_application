@@ -29,7 +29,6 @@ export class Requests {
                 };
             }
             const response = await axios.post(`${url}/users/register`, body)
-            console.log(response, 'register resp')
             return response.data;
         } catch (ex) {
             return {
@@ -64,7 +63,6 @@ export class Requests {
             };
         }
         const response = await axios.post(`${url}/users/authorize`, body)
-        console.log(response, 'authorize resp')
         return response.data;
         } catch (ex) {
             return {
@@ -81,7 +79,6 @@ export class Requests {
                 "Content-Type": "multipart/form-data"
             }
         })
-        console.log(response.data);
         if (response.data?.statusCode === 200) {
             return response.data;
         } else {

@@ -45,7 +45,6 @@ export const ConstructorBlock = forwardRef((props: constructorBlockProps, ref) =
             formData.append('post_hash', post_hash)
         }
         const response = await Requests.addPostPipe(formData);
-        console.log(response);
         return response;
     }
 

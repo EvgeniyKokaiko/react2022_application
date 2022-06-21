@@ -3,6 +3,7 @@ import {UserData} from "../redux/types";
 
 class CurrentUser {
     private _userData: UserData;
+    private __DEVELOPMENT__: boolean;
     constructor() {
         this._userData = {
             createdAt: "",
@@ -14,6 +15,7 @@ class CurrentUser {
             userToken: "",
             timeToLive: 0,
         }
+        this.__DEVELOPMENT__ = false;
     }
     public saveUser = async () => {
         try {
@@ -23,6 +25,10 @@ class CurrentUser {
             console.log('saveUser ex', ex)
         }
 
+    }
+
+    public get _DEVELOPMENT_(): boolean {
+        return this.__DEVELOPMENT__;
     }
 
     get userData(): UserData {

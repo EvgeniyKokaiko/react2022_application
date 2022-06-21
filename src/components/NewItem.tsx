@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Link, match } from "react-router-dom";
+import {Link, match, useHistory} from "react-router-dom";
 import { Item, MatchProps } from "../Interfaces";
 import { Location } from "history";
 import {ConstructorBlock} from './items/ConstructorBlock'
@@ -17,10 +17,9 @@ const New = (props: IProps): JSX.Element => {
   const [isGood, setGood]: [number, Function] = useState(1);
   const [references, setReference] = useState<referenceBlock[]>([]);
   const scrollRef = React.createRef<HTMLDivElement>();
-
+  const history = useHistory();
 
   const AddPostHandler = async () => {
-    console.log(references)
       await sendPost();
   };
 
@@ -70,8 +69,11 @@ const New = (props: IProps): JSX.Element => {
                   result.push(element.ref.current.onChunkSend(post_hash));
               }
               const responses = await Promise.all(result)
-
-              console.log(responses);
+              const isOk = responses.every((el) => el.statusCode === 200);
+              if (isOk) {
+                  window.alert('Пост був успішно доданий!');
+                  history.push('/')
+              }
           }
       } catch (ex) {
           console.log(ex);

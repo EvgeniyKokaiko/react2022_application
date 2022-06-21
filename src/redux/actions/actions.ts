@@ -2,6 +2,7 @@ import { Dispatch } from "redux";
 import { DispatchObj, Item, ItemComment } from "../../Interfaces";
 import axios from "axios";
 import { ActionTypes } from "../types";
+import {currentUser} from "../../business/CurrentUser";
 
 class ReduxActions {
     public static PORT: number = 8080;
@@ -89,7 +90,6 @@ class ReduxActions {
             return;
         }
         const response = await axios.get(`${this.apiUrl}/comments/get-comments/${post_hash}`)
-        console.log(response);
         if (response.data?.statusCode === 200) {
             dispatch({type: ActionTypes.GetComments, payload: response.data})
         } else {
@@ -126,7 +126,6 @@ class ReduxActions {
         }
         const response = await axios.delete(`${this.apiUrl}/comments/delete-comments?comment_hash=${comment_hash}`)
         if (response.data?.statusCode === 200) {
-            console.log(response)
             dispatch({type: ActionTypes.RemoveComment, payload: { ...response.data, comment_hash }})
         } else {
             window.confirm('Увага. Щось пішло не так!')
@@ -135,6 +134,5 @@ class ReduxActions {
 
 
 }
-//`http://ec2-3-72-233-128.eu-central-1.compute.amazonaws.com:${ReduxActions.PORT}/api
-export const url = `http://localhost:${ReduxActions.PORT}/api`
+export const url = currentUser._DEVELOPMENT_ ? `http://localhost:${ReduxActions.PORT}/api` : `http://ec2-3-72-233-128.eu-central-1.compute.amazonaws.com:${ReduxActions.PORT}/api`
 export const api = new ReduxActions(url)

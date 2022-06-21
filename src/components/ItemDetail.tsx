@@ -70,10 +70,8 @@ const ItemDetail: React.FC<itemDetailProps> = (props: itemDetailProps): JSX.Elem
 
 
   const renderChunks = () => {
-    console.log(postData)
     return postData.map((el, index) => {
-      // const imgSource = `http://ec2-3-72-233-128.eu-central-1.compute.amazonaws.com:8080/storage/posts/${el.post_hash}/${el.image}`
-      const imgSource = `http://localhost:8080/storage/posts/${el.post_hash}/${el.image}`
+      const imgSource = currentUser._DEVELOPMENT_ ? `http://localhost:8080/storage/posts/${el.post_hash}/${el.image}` : `http://ec2-3-72-233-128.eu-central-1.compute.amazonaws.com:8080/storage/posts/${el.post_hash}/${el.image}`
       return (
           <div key={index}>
             {index === 0 && <h1 style={{textAlign: 'center'}}>{el.title}</h1>}
